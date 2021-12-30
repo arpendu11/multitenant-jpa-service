@@ -41,6 +41,14 @@ public class Tenant implements TimeAudit {
                     + " value between 1 and 8 characters inclusive")
     private String key;
 
+    @Size(max = 30)
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @Size(max = 256)
+    @Column(name = "URL")
+    private String url;
+
     @Column(name = "ENABLED")
     private Boolean enabled;
 

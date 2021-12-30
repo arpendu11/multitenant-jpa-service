@@ -26,5 +26,9 @@ public class TenantRegistrationDTO {
             + " value between 1 and 8 characters inclusive")
     private String key;
 
+    @NotNull
+    @Size(max = 30)
+    private String password;
+
     private Boolean enabled;
 }

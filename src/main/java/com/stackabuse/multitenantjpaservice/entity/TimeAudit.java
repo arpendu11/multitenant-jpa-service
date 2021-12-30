@@ -2,13 +2,13 @@ package com.stackabuse.multitenantjpaservice.entity;
 
 public interface TimeAudit {
 
-    Long getCreatedBy();
+    String getCreatedBy();
     void setCreatedBy(String createdBy);
 
     Long getCreatedOn();
     void setCreatedOn(Long createdOn);
 
-    Long getLastUpdatedBy();
+    String getLastUpdatedBy();
     void setLastUpdatedBy(String lastUpdatedBy);
 
     Long getLastUpdatedOn();

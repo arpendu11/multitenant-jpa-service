@@ -10,5 +10,35 @@ spring:
     open-in-view: false
 
 multitenancy:
+  datasource-cache:
+    maximumSize: 100
+    expireAfterAccess: 1
   master:
+    repository:
+      packages: com.stackabuse.multitenantjpaservice.repository
+    entityManager:
+      packages: com.stackabuse.multitenantjpaservice.entity
+    datasource:
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: password
     schema: public
+    liquibase:
+      changeLog: classpath:db/changelog/db.changelog-master.yaml
+  tenant:
+    repository:
+      packages: com.stackabuse.multitenantjpaservice.tenant.repository
+    entityManager:
+      packages: com.stackabuse.multitenantjpaservice.tenant.entity
+    datasource:
+      url-prefix: jdbc:postgresql://localhost:5432/
+      hikari:
+        maximumPoolSize: 2
+        minimumIdle: 0
+        idleTimeout: 30000
+    liquibase:
+      changeLog: classpath:db/changelog/db.changelog-tenant.yaml
+
+encryption:
+  secret: secret
+  salt: salt
