@@ -8,7 +8,27 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: password
 
 multitenancy:
+  schema-cache:
+    maximumSize: 100
+    expireAfterAccess: 10
   master:
     schema: public
+    repository:
+      packages: com.stackabuse.multitenantjpaservice.repository
+    entityManager:
+      packages: com.stackabuse.multitenantjpaservice.entity
+    liquibase:
+      changeLog: classpath:db/changelog/db.changelog-master.yaml
+  tenant:
+    repository:
+      packages: com.stackabuse.multitenantjpaservice.tenant.repository
+    entityManager:
+      packages: com.stackabuse.multitenantjpaservice.tenant.entity
+    liquibase:
+      changeLog: classpath:db/changelog/db.changelog-tenant.yaml

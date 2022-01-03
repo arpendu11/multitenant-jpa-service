@@ -1,5 +1,6 @@
-package com.stackabuse.multitenantjpaservice.entity;
+package com.stackabuse.multitenantjpaservice.tenant.entity;
 
+import com.stackabuse.multitenantjpaservice.entity.TimeAudit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +13,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "USER", indexes = {
-        @Index(name = "user_unq", unique = true, columnList = "id")
+@Table(name = "USERS", indexes = {
+        @Index(name = "users_unq", unique = true, columnList = "id")
 })
-public class GlobalUser implements TimeAudit {
+public class User implements TimeAudit {
 
     @Id
     @Column(name = "ID")
@@ -36,13 +37,13 @@ public class GlobalUser implements TimeAudit {
     private String lastName;
 
     @Column(name = "CREATED_BY")
-    private Long createdBy;
+    private String createdBy;
 
     @Column(name = "CREATED_ON")
     private Long createdOn;
 
     @Column(name = "LAST_UPDATED_BY")
-    private Long lastUpdatedBy;
+    private String lastUpdatedBy;
 
     @Column(name = "LAST_UPDATED_ON")
     private Long lastUpdatedOn;
