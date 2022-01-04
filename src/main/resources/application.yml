@@ -11,11 +11,6 @@ spring:
   liquibase:
     enabled: true
     changeLog: classpath:db/changelog/db.changelog-tenant.yaml
-#    parameters:
-#      database: postgres
-#      schema: public
-#      username: tenant_user
-#      password: password
 multitenancy:
   master:
     datasource:
