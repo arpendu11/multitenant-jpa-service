@@ -1,7 +1,6 @@
 package com.stackabuse.multitenantjpaservice.config;
 
 import com.stackabuse.multitenantjpaservice.util.TenantContext;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.datasource.ConnectionProxy;
 import org.springframework.jdbc.datasource.DelegatingDataSource;
 import org.springframework.lang.Nullable;
@@ -47,7 +46,6 @@ public class TenantAwareDataSource extends DelegatingDataSource {
         }
     }
 
-    // Connection Proxy that intercepts close() to reset the tenant_id
     protected Connection getTenantAwareConnectionProxy(Connection connection) {
         return (Connection) Proxy.newProxyInstance(
                 ConnectionProxy.class.getClassLoader(),
@@ -55,7 +53,6 @@ public class TenantAwareDataSource extends DelegatingDataSource {
                 new TenantAwareDataSource.TenantAwareInvocationHandler(connection));
     }
 
-    // Connection Proxy invocation handler that intercepts close() to reset the tenant_id
     private class TenantAwareInvocationHandler implements InvocationHandler {
         private final Connection target;
 
