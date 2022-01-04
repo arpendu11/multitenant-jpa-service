@@ -8,7 +8,24 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
-
+  liquibase:
+    enabled: true
+    changeLog: classpath:db/changelog/db.changelog-tenant.yaml
+#    parameters:
+#      database: postgres
+#      schema: public
+#      username: tenant_user
+#      password: password
 multitenancy:
   master:
-    schema: public
+    datasource:
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: password
+      hikari:
+        maximum-pool-size: 1
+  tenant:
+    datasource:
+      url: ${multitenancy.master.datasource.url}
+      username: postgres
+      password: password

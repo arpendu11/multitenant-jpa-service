@@ -1,0 +1,67 @@
+databaseChangeLog:
+
+- changeSet:
+    id: root
+    author: SystemAdmin
+    changes:
+    - createTable:
+        tableName: users
+        columns:
+        - column:
+            name: id
+            type: UUID
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_pkey
+              nullable: false
+        - column:
+            name: username
+            type: VARCHAR(255)
+            constraints:
+              nullable: false
+              unique: true
+        - column:
+            name: first_name
+            type: VARCHAR(255)
+        - column:
+            name: last_name
+            type: VARCHAR(255)
+        - column:
+            name: tenant_key
+            type: VARCHAR(255)
+            constraints:
+              nullable: false
+              unique: true
+        - column:
+            name: created_by
+            type: VARCHAR(255)
+            constraints:
+              nullable: true
+        - column:
+            name: created_on
+            type: BIGINT
+            constraints:
+              nullable: true
+        - column:
+            name: last_updated_by
+            type: VARCHAR(255)
+            constraints:
+              nullable: true
+        - column:
+            name: last_updated_on
+            type: BIGINT
+            constraints:
+              nullable: true
+    - sql:
+        dbms: 'postgresql'
+        sql: >-
+            CREATE USER tenant WITH PASSWORD 'password';
+            GRANT CONNECT ON DATABASE postgres TO tenant;
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES
+                ON TABLES TO tenant_user;
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE ON SEQUENCES TO tenant;
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO tenant;
+            ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+            DROP POLICY IF EXISTS users_tenant_isolation_policy ON users;
+            CREATE POLICY users_tenant_isolation_policy ON users
+                USING (tenant_key = current_setting('app.tenant_key')::VARCHAR);
