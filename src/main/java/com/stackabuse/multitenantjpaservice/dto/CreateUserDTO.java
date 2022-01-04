@@ -6,19 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @ToString
 @Data
 @NoArgsConstructor
 public class CreateUserDTO {
-
-    @NotNull
-    @Size(min = 1, max = 8, message = "Tenant key must be between 1 and 8 characters")
-    @Pattern(regexp = "^[a-z0-9]{1,8}$", message = "Tenant key must be lowercase alphanumeric ASCII"
-            + " value between 1 and 8 characters inclusive")
-    private String tenantKey;
 
     @NotNull
     private String username;

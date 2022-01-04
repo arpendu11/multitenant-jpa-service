@@ -35,11 +35,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User createUser(CreateUserDTO createUserDTO) {
-        User user = new User();
-        user.setTenantKey(createUserDTO.getTenantKey());
-        user.setUsername(createUserDTO.getUsername());
-        user.setFirstName(createUserDTO.getFirstName());
-        user.setLastName(createUserDTO.getLastName());
+        User user = User
+                .builder()
+                .username(createUserDTO.getUsername())
+                .firstName(createUserDTO.getFirstName())
+                .lastName(createUserDTO.getLastName())
+                .build();
         user.setCreatedBy("admin");
         user.setCreatedOn(System.currentTimeMillis());
         user.setLastUpdatedBy("admin");
