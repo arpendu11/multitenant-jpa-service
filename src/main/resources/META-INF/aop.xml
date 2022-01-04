@@ -1,0 +1,9 @@
+<aspectj>
+    <weaver options="-Xreweavable -Xset:weaveJavaxPackages=true">
+        <include within="com.stackabuse.multitenantjpaservice.aspect.TenantFilterAspect"/>
+        <include within="org.hibernate.internal.SessionFactoryImpl.SessionBuilderImpl"/>
+    </weaver>
+    <aspects>
+        <aspect name="com.stackabuse.multitenantjpaservice.aspect.TenantFilterAspect"/>
+    </aspects>
+</aspectj>
