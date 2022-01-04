@@ -55,12 +55,12 @@ databaseChangeLog:
     - sql:
         dbms: 'postgresql'
         sql: >-
-            CREATE USER tenant WITH PASSWORD 'password';
-            GRANT CONNECT ON DATABASE postgres TO tenant;
+            CREATE USER tenant_user WITH PASSWORD 'password';
+            GRANT CONNECT ON DATABASE postgres TO tenant_user;
             ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES
                 ON TABLES TO tenant_user;
-            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE ON SEQUENCES TO tenant;
-            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO tenant;
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE ON SEQUENCES TO tenant_user;
+            ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT EXECUTE ON FUNCTIONS TO tenant_user;
             ALTER TABLE users ENABLE ROW LEVEL SECURITY;
             DROP POLICY IF EXISTS users_tenant_isolation_policy ON users;
             CREATE POLICY users_tenant_isolation_policy ON users
